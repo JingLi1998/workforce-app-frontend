@@ -1,5 +1,8 @@
 <template>
-  <v-img height="45vh" src="/office.png">
+  <v-img
+    height="45vh"
+    src="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+  >
     <v-row align="end" class="fill-height">
       <v-col align-self="start" class="pa-0" cols="12">
         <v-btn

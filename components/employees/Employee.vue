@@ -1,5 +1,8 @@
 <template>
-  <v-img height="40vh" src="/employee.png">
+  <v-img
+    height="40vh"
+    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+  >
     <v-row align="end" class="fill-height">
       <v-col align-self="start" class="pa-0" cols="12">
         <v-avatar class="profile" color="grey" size="164" tile>
