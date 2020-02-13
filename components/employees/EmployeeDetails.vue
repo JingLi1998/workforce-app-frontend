@@ -2,50 +2,51 @@
   <div>
     <v-row>
       <v-col sm="4">
-        <v-card flat outlined>
+        <v-card outlined>
           <v-app-bar color="primary" dark dense flat>
-            <v-toolbar-title class="subtitle-1">
-              Employee Details
-            </v-toolbar-title>
+            <v-toolbar-title class="subtitle-1">Employee Details</v-toolbar-title>
           </v-app-bar>
           <v-list>
-            <v-list-item @click="dummy" v-for="n in 3" :key="n.id">
-              <v-list-item-content>
-                <v-list-item-title>Detail {{ n }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+            <v-list-item-group>
+              <template v-for="(n, i) in 3">
+                <v-divider v-if="i !== 0" :key="`${i}-divider`"></v-divider>
+                <v-list-item :key="n.id">
+                  <v-list-item-content>
+                    <v-list-item-title>Detail {{ n }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-list-item-group>
           </v-list>
         </v-card>
       </v-col>
       <v-col sm="8">
-        <v-card flat outlined>
+        <v-card outlined>
           <v-app-bar color="primary" dark dense flat>
-            <v-toolbar-title class="subtitle-1">
-              Current Projects
-            </v-toolbar-title>
+            <v-toolbar-title class="subtitle-1">Current Projects</v-toolbar-title>
             <v-spacer />
             <v-btn @click="showProjectForm" icon>
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </v-app-bar>
           <v-list flat>
-            <v-list-item v-if="projects.length == 0" @click="dummy">
-              <v-list-item-content>
-                <v-list-item-title>No Projects</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item
-              v-else
-              @click="dummy"
-              v-for="(project, i) in projects"
-              :key="project.id"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ i + 1 }}. {{ project.name }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+            <v-list-item-group>
+              <v-slide-y-transition v-if="projects.length > 0" class="py-0" group>
+                <template v-for="(project, i) in projects">
+                  <v-divider v-if="i !== 0" :key="`${i}-divider`"></v-divider>
+                  <v-list-item :key="project.id">
+                    <v-list-item-content>
+                      <v-list-item-title v-text="`${ i + 1 }. ${ project.name }`" />
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </v-slide-y-transition>
+              <v-list-item v-else>
+                <v-list-item-content>
+                  <v-list-item-title>No Projects</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
           </v-list>
         </v-card>
       </v-col>
@@ -53,9 +54,7 @@
 
     <v-dialog v-model="dialog" width="800px">
       <v-card>
-        <v-card-title class="primary" style="color:white">
-          Assign Project
-        </v-card-title>
+        <v-card-title class="primary" style="color:white">Assign Project</v-card-title>
         <v-container>
           <v-row class="mx-2">
             <v-col class="align-center justify-space-between" cols="12">
@@ -99,7 +98,6 @@ export default {
     }
   },
   methods: {
-    dummy() {},
     async showProjectForm() {
       const data = await this.$axios.$get("/projects");
       this.projectList = data.projects;

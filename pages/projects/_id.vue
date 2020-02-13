@@ -5,7 +5,7 @@
         <app-project :project="project"></app-project>
         <app-edit-project :project="project" v-on:project-updated="refresh"></app-edit-project>
       </v-card>
-      <app-project-details></app-project-details>
+      <app-project-details :projectEmployees="employees" v-on:employee-assigned="refresh"></app-project-details>
     </v-col>
   </v-container>
 </template>
@@ -17,8 +17,11 @@ import EditProject from "../../components/projects/forms/EditProject.vue";
 
 export default {
   async asyncData({ $axios, params }) {
-    const data = await $axios.$get(`/projects/${params.id}`);
-    return { project: data.project };
+    const [projectData, employeeData] = await Promise.all([
+      $axios.$get(`/projects/${params.id}`),
+      $axios.$get(`/projects/${params.id}/employees`)
+    ]);
+    return { project: projectData.project, employees: employeeData.employees };
   },
   components: {
     appProject: Project,
@@ -27,8 +30,12 @@ export default {
   },
   methods: {
     async refresh() {
-      const data = await this.$axios.$get(`/projects/${this.$route.params.id}`);
-      this.project = data.project;
+      const [projectData, employeeData] = await Promise.all([
+        this.$axios.$get(`/projects/${this.$route.params.id}`),
+        this.$axios.$get(`/projects/${this.$route.params.id}/employees`)
+      ]);
+      this.project = projectData.project;
+      this.employees = employeeData.employees;
     }
   }
 };

@@ -2,6 +2,7 @@
   <div>
     <v-speed-dial
       v-model="fab"
+      small
       absolute
       right
       bottom
@@ -9,16 +10,13 @@
       transition="scale-transition"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="primary" dark fab>
+        <v-btn v-model="fab" color="primary" dark small fab>
           <v-icon v-if="fab">mdi-close</v-icon>
           <v-icon v-else>mdi-account-circle</v-icon>
         </v-btn>
       </template>
       <v-btn @click="showForm" fab dark small color="blue">
         <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-      <v-btn @click="add = !add" fab dark small color="indigo">
-        <v-icon>mdi-plus</v-icon>
       </v-btn>
       <v-btn @click="remove = !remove" fab dark small color="red">
         <v-icon>mdi-delete</v-icon>
@@ -27,9 +25,7 @@
 
     <v-dialog v-model="edit" width="800px">
       <v-card>
-        <v-card-title class="primary" style="color:white"
-          >Edit Department</v-card-title
-        >
+        <v-card-title class="primary" style="color:white">Edit Department</v-card-title>
         <v-container>
           <v-container>
             <v-row class="mx-2">
@@ -64,9 +60,7 @@
 
     <v-dialog v-model="remove" width="800px">
       <v-card>
-        <v-card-title class="primary" style="color:white"
-          >Delete Department</v-card-title
-        >
+        <v-card-title class="primary" style="color:white">Delete Department</v-card-title>
         <v-container>
           <v-row class="mx-2">Warning. This action cannot be undone.</v-row>
         </v-container>

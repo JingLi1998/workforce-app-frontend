@@ -5,7 +5,12 @@
         <app-department :department="department"></app-department>
         <app-edit-department :department="department" v-on:department-updated="refresh"></app-edit-department>
       </v-card>
-      <app-department-details></app-department-details>
+      <app-department-details
+        :departmentProjects="projects"
+        :departmentEmployees="employees"
+        v-on:employee-assigned="refresh"
+        v-on:project-assigned="refresh"
+      ></app-department-details>
     </v-col>
   </v-container>
 </template>
@@ -17,8 +22,16 @@ import EditDepartment from "../../components/departments/forms/EditDepartment.vu
 
 export default {
   async asyncData({ $axios, params }) {
-    const data = await $axios.$get(`/departments/${params.id}`);
-    return { department: data.department };
+    const [departmentData, projectData, employeeData] = await Promise.all([
+      $axios.$get(`/departments/${params.id}`),
+      $axios.$get(`/departments/${params.id}/projects`),
+      $axios.$get(`/departments/${params.id}/employees`)
+    ]);
+    return {
+      department: departmentData.department,
+      projects: projectData.projects,
+      employees: employeeData.employees
+    };
   },
   components: {
     appDepartment: Department,
@@ -27,10 +40,14 @@ export default {
   },
   methods: {
     async refresh() {
-      const data = await this.$axios.$get(
-        `/departments/${this.$route.params.id}`
-      );
-      this.department = data.department;
+      const [departmentData, projectData, employeeData] = await Promise.all([
+        this.$axios.$get(`/departments/${this.$route.params.id}`),
+        this.$axios.$get(`/departments/${this.$route.params.id}/projects`),
+        this.$axios.$get(`/departments/${this.$route.params.id}/employees`)
+      ]);
+      this.department = departmentData.department;
+      this.projects = projectData.projects;
+      this.employees = employeeData.employees;
     }
   }
 };
