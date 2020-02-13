@@ -12,11 +12,11 @@
           class="mt-9"
           @click="$router.go(-1)"
           absolute
+          small
           dark
           fab
           top
           right
-          small
           color="primary"
         >
           <v-icon>mdi-chevron-left</v-icon>
@@ -25,8 +25,8 @@
       <v-col class="py-0">
         <v-list-item color="rgba(0, 0, 0, .4)" dark>
           <v-list-item-content>
-            <v-list-item-title class="title" v-text="fullName" />
-            <v-list-item-subtitle v-text="role" />
+            <v-list-item-title class="title" v-text="department.name" />
+            <v-list-item-subtitle v-text="department.location" />
           </v-list-item-content>
         </v-list-item>
       </v-col>
@@ -35,21 +35,5 @@
 </template>
 
 <script>
-export default {
-  props: ["currentEmployee"],
-  computed: {
-    employee() {
-      return this.currentEmployee;
-    },
-    fullName() {
-      return this.employee.first_name + " " + this.employee.last_name;
-    },
-    role() {
-      console.log(this.employee.department);
-      return this.employee.department
-        ? `${this.employee.role} | ${this.employee.department.name}`
-        : `${this.employee.role} | No Department`;
-    }
-  }
-};
+export default { props: ["department"] };
 </script>

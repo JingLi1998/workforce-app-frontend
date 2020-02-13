@@ -17,54 +17,35 @@
       <v-card>
         <!-- form title -->
         <v-card-title
+          style="color:white"
           class="primary"
-          style="color: white"
-          v-text="'Add Employee'"
+          v-text="'Add Project'"
         />
         <!-- form fields -->
         <v-container class="pb-0">
           <v-row class="mx-2">
             <v-col class="align-center justify-space-between py-0" cols="12">
               <v-row align="center" class="mr-0">
-                <v-col class="py-0">
+                <v-col cols="12" class="py-0">
                   <v-text-field
                     prepend-icon="mdi-account-badge-horizontal"
-                    placeholder="Salary ID"
-                    v-model="formData.salary_id"
-                  />
-                </v-col>
-              </v-row>
-              <v-row align="center" class="mr-0">
-                <v-col cols="6" class="py-0">
-                  <v-text-field
-                    prepend-icon="mdi-account"
-                    v-model="formData.first_name"
-                    placeholder="First Name"
-                  />
-                </v-col>
-                <v-col cols="6" class="py-0">
-                  <v-text-field
-                    placeholder="Last Name"
-                    v-model="formData.last_name"
+                    placeholder="Project Name"
+                    v-model="formData.name"
                   />
                 </v-col>
               </v-row>
             </v-col>
-            <v-col cols="6" class="py-0">
+            <v-col cols="12" class="py-0">
               <v-text-field
-                prepend-icon="mdi-city-variant"
-                placeholder="Department"
-                v-model="formData.department"
-                disabled
+                prepend-icon="mdi-text"
+                placeholder="Project Description"
+                v-model="formData.description"
               />
-            </v-col>
-            <v-col cols="6" class="py-0">
-              <v-text-field placeholder="Role" v-model="formData.role" />
             </v-col>
           </v-row>
         </v-container>
         <!-- form buttons -->
-        <v-card-actions class="pt-0">
+        <v-card-actions>
           <v-spacer />
           <v-btn
             text
@@ -84,27 +65,23 @@ export default {
   data: () => ({
     dialog: false,
     formData: {
-      salary_id: undefined,
-      first_name: undefined,
-      last_name: undefined,
-      role: undefined,
-      projects: []
+      name: undefined,
+      description: undefined,
+      employees: []
     }
   }),
   methods: {
     resetForm() {
       this.formData = {
-        salary_id: undefined,
-        first_name: undefined,
-        last_name: undefined,
-        role: undefined,
-        projects: []
+        name: undefined,
+        description: undefined,
+        employees: []
       };
     },
     async submitForm() {
-      await this.$axios.$post("/employees", this.formData);
+      await this.$axios.$post("/projects", this.formData);
       this.resetForm();
-      this.$emit("employee-added");
+      this.$emit("project-added");
       this.dialog = false;
     }
   }

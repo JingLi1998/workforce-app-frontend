@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" fixed app>
+    <!-- navigation drawer -->
+    <v-navigation-drawer v-model="drawer" temporary fixed app>
       <v-list dense>
         <nuxt-link
           tag="div"
@@ -14,25 +15,26 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-title v-text="item.text" />
             </v-list-item-content>
           </v-list-item>
         </nuxt-link>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+
+    <!-- main navbar -->
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-        <span class="hidden-sm-and-down font-weight-bold">Westpac Employees</span>
+        <span class="hidden-sm-and-down font-weight-bold">
+          Westpac Employees
+        </span>
       </v-toolbar-title>
-      <!-- <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="mdi-magnify"
-        label="Search"
-        class="hidden-sm-and-down"
-      />-->
       <v-spacer />
       <nuxt-link to="/">
         <v-btn icon>
@@ -42,11 +44,13 @@
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" item>
-          <v-img :src="require('../assets/logo.png')" alt="Vuetify" />
-        </v-avatar>
-      </v-btn>
+      <a href="https://www.westpac.com.au/">
+        <v-btn icon large>
+          <v-avatar size="32px" item>
+            <v-img :src="require('../assets/logo.png')" alt="Vuetify" />
+          </v-avatar>
+        </v-btn>
+      </a>
     </v-app-bar>
     <nuxt />
     <!-- <v-footer fixed app> -->
