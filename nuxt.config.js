@@ -52,7 +52,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: "https://workforce-app-backend.herokuapp.com"
+    baseURL: "https://workforce-app-backend.herokuapp.com/api"
   },
   /*
    ** vuetify module configuration
